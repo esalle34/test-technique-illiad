@@ -54,28 +54,35 @@ export default function ScreenRenderer() {
 
       <p>Showroom</p>
       {/* Rendu dynamique des composants à insérer ici */}
-      {intents && screenId && (
-        <>
-          {intents["address-form"] && (
-            <AddressForm
-              default={intents["address-form"].default}
-              isVisible={
-                intents["address-form"]["visible-if"]?.["accept-cgu"]
-                  ? checked
-                  : true
-              }
-            />
-          )}
-          {intents["accept-cgu"] && (
-            <AcceptCGU
-              label={intents["accept-cgu"].label}
-              checked={checked}
-              setChecked={setChecked}
-            />
-          )}
-          {intents["button"] && <Button label={intents["button"].label} />}
-        </>
-      )}
+      <>
+        {intents &&
+          Object.keys(intents).map((intent) => {
+            if (intent === "address-form" && intents["address-form"]) {
+              return (
+                <AddressForm
+                  default={intents["address-form"].default}
+                  isVisible={
+                    intents["address-form"]["visible-if"]?.["accept-cgu"]
+                      ? checked
+                      : true
+                  }
+                />
+              );
+            }
+            if (intent === "accept-cgu" && intents["accept-cgu"]) {
+              return (
+                <AcceptCGU
+                  label={intents["accept-cgu"].label}
+                  checked={checked}
+                  setChecked={setChecked}
+                />
+              );
+            }
+            if (intent === "button" && intents["button"]) {
+              return <Button label={intents["button"].label} />;
+            }
+          })}
+      </>
     </div>
   );
 }
