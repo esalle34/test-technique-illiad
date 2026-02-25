@@ -50,7 +50,9 @@ export default function ScreenRenderer() {
       {/* Exemple pour montrer les composants disponibles */}
       {/* Vous pouvez supprimer les lignes ci-après pour laisser place à votre implémentation */}
       {/* Vous pouvez également modifier les composants fournis pour qu'ils répondent à vos besoins */}
+      <p className="text-xl font-bold mb-2">Écran dynamique : {screenId}</p>
 
+      <p>Showroom</p>
       {/* Rendu dynamique des composants à insérer ici */}
       {intents && screenId && (
         <>
