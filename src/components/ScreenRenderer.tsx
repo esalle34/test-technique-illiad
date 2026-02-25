@@ -56,10 +56,11 @@ export default function ScreenRenderer() {
       {/* Rendu dynamique des composants à insérer ici */}
       <>
         {intents &&
-          Object.keys(intents).map((intent) => {
+          Object.keys(intents).map((intent, index) => {
             if (intent === "address-form" && intents["address-form"]) {
               return (
                 <AddressForm
+                  key={`address-form-${index}`}
                   default={intents["address-form"].default}
                   isVisible={
                     intents["address-form"]["visible-if"]?.["accept-cgu"]
@@ -72,6 +73,7 @@ export default function ScreenRenderer() {
             if (intent === "accept-cgu" && intents["accept-cgu"]) {
               return (
                 <AcceptCGU
+                  key={`accept-cgu-${index}`}
                   label={intents["accept-cgu"].label}
                   checked={checked}
                   setChecked={setChecked}
@@ -79,7 +81,12 @@ export default function ScreenRenderer() {
               );
             }
             if (intent === "button" && intents["button"]) {
-              return <Button label={intents["button"].label} />;
+              return (
+                <Button
+                  key={`button-${index}`}
+                  label={intents["button"].label}
+                />
+              );
             }
           })}
       </>
