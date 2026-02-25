@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import AddressForm from "./AddressForm.tsx";
 import AcceptCGU from "./AcceptCGU.tsx";
 import Button from "./Button.tsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchIntents } from "../mock/intents.ts";
 
 interface Page {
@@ -27,15 +27,15 @@ export default function ScreenRenderer() {
   // 4. Pour chaque intent, afficher le composant correspondant avec ses props.
 
   // 5. Bonus : Gérer les conditions d'affichage si l'intent possède un champ "visible-if".
-  const resultPromise = useMemo(async () => {
+  const resultPromise = async () => {
     if (screenId) {
       return await fetchIntents(screenId);
     }
     return null;
-  }, [screenId]);
+  };
 
   const getIntents = async () => {
-    const result = await resultPromise;
+    const result = await resultPromise();
     if (result) {
       setIntents(result as Page);
     }
@@ -43,7 +43,7 @@ export default function ScreenRenderer() {
 
   useEffect(() => {
     getIntents();
-  }, [intents]);
+  }, [screenId]);
 
   return (
     <div className="p-4">
